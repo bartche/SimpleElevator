@@ -18,7 +18,7 @@
 # Description
 
 [Nova](https://github.com/xenondevs/Nova) addon which adds elevator block to teleport the player up and down<br>
-[Download here](https://github.com/CptbeffHeart/SimpleElevator/releases)
+Use `gradlew addonJar -PoutDir="path/to/directory"` to build
 
 # How to use
 To use them place two or more elevators in the same X and Z coordinates, to move between them simply jump to go to the elevator above or sneak to go to the one below.
@@ -35,7 +35,7 @@ The other colors can be obtain with the command `/nova give [player] simple_elev
 
 # Install
 Add the latest [nova](https://github.com/xenondevs/Nova) version in your plugin folder, then restart the server.<br>
-Put this addon on the addon folder `plugins/Nova/addons`
+Put this addon on the addon folder `plugins/`
 >[!Tip]
 > You can follow the [official nova setup guide](https://xenondevs.xyz/docs/nova/admin/setup/).
 
