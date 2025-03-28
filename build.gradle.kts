@@ -6,45 +6,34 @@ version = "3.0.0"
 
 plugins {
     alias(libs.plugins.kotlin)
-    alias(libs.plugins.paperweight)
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.16"
     alias(libs.plugins.nova)
     id("org.jetbrains.dokka") version "1.9.20"
 }
 
 repositories {
     mavenCentral()
-    maven("https://papermc.io/repo/repository/maven-public/")
+    maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://repo.xenondevs.xyz/releases")
 }
 
 dependencies {
-    paperweight.paperDevBundle(libs.versions.paper)
+    paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
     implementation(libs.nova)
 }
 
-addon {
-    id.set("simple_elevator")
-    name.set("Simple-Elevator")
-    version.set(project.version.toString())
-    novaVersion.set(libs.versions.nova)
-    main.set("com.expectale.SimpleElevator")
-    authors.add("CptBeffHeart")
+java {
+	toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 }
 
-tasks {
-    register<Copy>("addonJar") {
-        group = "build"
-        dependsOn("jar")
-        from(File(project.layout.buildDirectory.get().asFile, "libs/${project.name}-${project.version}.jar"))
-        into((project.findProperty("outDir") as? String)?.let(::File) ?: project.layout.buildDirectory.get().asFile)
-        rename { "${addonMetadata.get().addonName.get()}-${project.version}.jar" }
-    }
-    
-    withType<KotlinCompile> {
-        compilerOptions {
-            jvmTarget = JvmTarget.JVM_21
-        }
-    }
+addon {
+    name = "simpleelevator"
+    version = project.version.toString()
+	main = "com.expectale.SimpleElevator"
+	
+	val outDir = project.findProperty("outDir")
+    if (outDir is String)
+        destination.set(File(outDir))
 }
 
 afterEvaluate {
