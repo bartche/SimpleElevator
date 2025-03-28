@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:block/cube_all",
 	"textures": {
-		"all": "simple_elevator:block/orange_elevator"
+		"all": "simpleelevator:block/orange_elevator"
 	}
 }

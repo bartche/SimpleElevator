@@ -5,7 +5,7 @@ import org.bukkit.Material
 import xyz.xenondevs.nova.addon.registry.BlockRegistry
 import xyz.xenondevs.nova.initialize.Init
 import xyz.xenondevs.nova.initialize.InitStage
-import xyz.xenondevs.nova.resources.layout.block.BackingStateCategory
+import xyz.xenondevs.nova.resources.builder.layout.block.BackingStateCategory
 import xyz.xenondevs.nova.world.block.NovaBlock
 import xyz.xenondevs.nova.world.block.behavior.BlockSounds
 import xyz.xenondevs.nova.world.block.behavior.Breakable
@@ -15,13 +15,8 @@ import xyz.xenondevs.nova.world.item.tool.VanillaToolTiers
 
 @Init(stage = InitStage.PRE_PACK)
 object Blocks : BlockRegistry by SimpleElevator.registry {
-    
-    private val ELEVATOR = Breakable(
-        2.0,
-        VanillaToolCategories.PICKAXE,
-        VanillaToolTiers.STONE,
-        true,
-        Material.STONE)
+
+	private val ELEVATOR = Breakable(2.0, setOf(VanillaToolCategories.PICKAXE), VanillaToolTiers.STONE, true, Material.STONE)
     
     val BLACK_ELEVATOR = elevatorBlock("black_elevator")
     val BLUE_ELEVATOR = elevatorBlock("blue_elevator")
@@ -40,12 +35,11 @@ object Blocks : BlockRegistry by SimpleElevator.registry {
     val WHITE_ELEVATOR = elevatorBlock("white_elevator")
     val YELLOW_ELEVATOR = elevatorBlock("yellow_elevator")
     
-    private fun elevatorBlock(
-        name: String
-    ): NovaBlock = block(name) {
-        behaviors(ELEVATOR, BlockSounds(SoundGroup.STONE))
-        models {
-            stateBacked(BackingStateCategory.MUSHROOM_BLOCK, BackingStateCategory.NOTE_BLOCK)
-        }
-    }
+    private fun elevatorBlock( name: String ): NovaBlock =
+		block("block/$name") {
+			behaviors(ELEVATOR, BlockSounds(SoundGroup.STONE))
+			stateBacked(BackingStateCategory.MUSHROOM_BLOCK, BackingStateCategory.NOTE_BLOCK) {
+				getModel("block/$name")
+			}
+		}
 }
